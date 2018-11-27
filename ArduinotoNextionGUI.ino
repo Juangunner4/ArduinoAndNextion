@@ -10,7 +10,7 @@ Nextion myNextion(nextion, 9600); // Create a Nextion object named myNextion usi
 char charstring[80];
 char*pch;
 
-int field, event, page, id, whatever;
+int field, event, page, id, value;
 
 void setup() {
   Serial.begin(9600);
@@ -33,13 +33,13 @@ void loop() {
       if(field==1)event=atoi(pch);
       if(field==2)page=atoi(pch);
       if(field==3)id=strtol(pch,NULL,16);
-      if(field==4)whatever=atoi(pch);
+      if(field==4)value=atoi(pch);
       pch = strtok(NULL, " ");
     }
     Serial.println(event);
     Serial.println(page);
     Serial.println(id);
-    Serial.println(whatever);
+    Serial.println(value);
   }
 
 }
