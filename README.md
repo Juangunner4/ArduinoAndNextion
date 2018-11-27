@@ -1,2 +1,3 @@
 # ArduinoAndNextion
-Arduino and Nextion Communication
+
+1 Arduino and Nextion communication on field, event, page, id, and value
