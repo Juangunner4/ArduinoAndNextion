@@ -1,0 +1,45 @@
+
+
+#include <SoftwareSerial.h>
+#include <Nextion.h>
+
+SoftwareSerial nextion(3,2);// Nextion TX pin 3 and RX pin 2 to Arduino
+
+Nextion myNextion(nextion, 9600); // Create a Nextion object named myNextion using the nextion port @ 9600bps
+
+char charstring[80];
+char*pch;
+
+int field, event, page, id, whatever;
+
+void setup() {
+  Serial.begin(9600);
+  myNextion.init();
+
+}
+
+void loop() {
+
+  String message = myNextion.listen(); // Check for message
+  field=0;
+  message.toCharArray(charstring,80);
+
+  if(message != ""){ //if message is received...
+    Serial.println(charstring); //...Print out
+    pch = strtok(charstring, " ");
+    while(pch != NULL) {
+      field++;
+
+      if(field==1)event=atoi(pch);
+      if(field==2)page=atoi(pch);
+      if(field==3)id=strtol(pch,NULL,16);
+      if(field==4)whatever=atoi(pch);
+      pch = strtok(NULL, " ");
+    }
+    Serial.println(event);
+    Serial.println(page);
+    Serial.println(id);
+    Serial.println(whatever);
+  }
+
+}
