@@ -1,6 +1,6 @@
 
 
-#include <Nextion.h>
+include <Nextion.h>
 #include <SoftwareSerial.h>
 
 SoftwareSerial nextion(3,2);// Nextion TX pin 3 and RX pin 2 to Arduino
@@ -19,7 +19,7 @@ void setup() {
 
 }
 
-void loop() {
+void loop () {
   String message = myNextion.listen(); // Check for message
   field=0;
   message.toCharArray(charstring,80);
@@ -32,13 +32,31 @@ void loop() {
 
       if(field==1)event=atoi(pch);
       if(field==2)page=atoi(pch);
-      if(field==3)id=strtol(pch,NULL,16);
+      if(field==3)id=strtol(pch,NULL,16); // Change so HEX changes to number not letter
       if(field==4)value=atoi(pch);
       pch = strtok(NULL, " ");
     }
-   if(message=="65 1 7 1 ffff ffff ffff"){
+if(message=="65 1 7 1 ffff ffff ffff"){
+  myNextion.sendCommand("n0.val+=1"); 
+   }
+
+if(message=="65 1 9 1 ffff ffff ffff"){
     myNextion.sendCommand("n0.val+=1"); 
    }
-   if(message=="65 
+ if(message=="65 1 c 1 ffff ffff ffff"){
+    myNextion.sendCommand("n0.val+=1"); 
+   }
+ if(message=="65 1 a 1 ffff ffff ffff"){
+    myNextion.sendCommand("page 0"); 
+    myNextion.sendCommand("n0.val+=1");
+   }
+  if(message=="65 1 b 1 ffff ffff ffff"){
+    myNextion.sendCommand("page 0"); 
+    myNextion.sendCommand("n0.val+=1");
+   }
+  if(message=="65 1 c 1 ffff ffff ffff"){
+    myNextion.sendCommand("page 0"); 
+    myNextion.sendCommand("n0.val+=1");
+   }
   }
 }
