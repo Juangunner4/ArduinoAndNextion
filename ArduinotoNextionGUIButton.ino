@@ -1,5 +1,3 @@
-
-
 #include <Nextion.h>
 #include <SoftwareSerial.h>
 
@@ -37,14 +35,30 @@ void loop () {
 
     }
 
-    Serial.println(value);
-    Serial.println(id);
     Serial.println(page);
-     if(page == 1 && id==10 && value==1){
-      
-     }
-
-    
+    Serial.println(id);
+    Serial.println(value);
+    if(page==1 && id==0 && value==0){
+      myNextion.sendCommand("page 4");
+    }
+    if(page==2 && id==2 && value==0){
+     myNextion.sendCommand("n0.val+=1"); 
+    }
+    if(page==3 && id==2 && value==0){
+      myNextion.sendCommand("n1.val+=1") ;
+    }
+    if(page==4 && id==3 && value==0){
+      myNextion.sendCommand("page 5");
+    }
+    if (page==4 && id==3 && value==1){
+      myNextion.sendCommand("page 5");
+    }
+    if(page==5 && id==2 && value==0){
+      myNextion.sendCommand("page 1");
+    }
+    if(page==5 && id==3 && value==0){
+      myNextion.sendCommand("page 0");
+    }
   }
 
 }
